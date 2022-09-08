@@ -2,7 +2,10 @@ import './style.css';
 import './app.css';
 
 // import logo from './assets/images/logo-universal.png';
-import {Greet} from '../wailsjs/go/main/App';
+import {Greet, ScanDir} from '../wailsjs/go/main/App';
+// import { main } from '../wailsjs/go/models';
+
+let PWD:string = "\home\jp3";
 
 // Setup the greet function
 window.greet = function () {
@@ -26,6 +29,23 @@ window.greet = function () {
         console.error(err);
     }
 };
+
+window.scan_dir = function(path:string, save:boolean){
+	try {
+		ScanDir(path)
+			.then((result) => {
+
+				console.log(PWD, save);
+				console.log(result);
+
+			}).catch((err) => {
+				console.error(err);
+			})
+	} catch (err) {
+		console.error(err);
+	}	    
+}
+
 /*
 document.querySelector('#app')!.innerHTML = `
     <img id="logo" class="logo">
@@ -46,5 +66,6 @@ let resultElement = document.getElementById("result");
 declare global {
     interface Window {
         greet: () => void;
+        scan_dir: (path:string, save:boolean) => void;
     }
 }
