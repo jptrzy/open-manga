@@ -52,3 +52,42 @@
     border: none;
     background-color: rgba(255, 255, 255, 1);
 }
+
+ol {
+	color: white;
+	user-select: none;
+}
+
+li {
+	color: gray;
+}
+
+li::before {
+	content: " ";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 400; 
+}
+
+li.dir {
+	cursor: pointer;
+	color: white;
+}
+
+li.dir::before {
+	content: " ";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 400; 
+}
+
+li.img {
+	cursor: pointer;
+	color: purple;
+}
+
+li.img::before {
+	content: " ";
+	font-family: "Font Awesome 6 Free";
+	font-weight: 400; 
+}
+
+

@@ -1,11 +1,15 @@
 import './style.css';
 import './app.css';
 
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
+
+
 // import logo from './assets/images/logo-universal.png';
 import {Greet, ScanDir} from '../wailsjs/go/main/App';
-// import { main } from '../wailsjs/go/models';
+import { main } from '../wailsjs/go/models';
 
-let PWD:string = "\home\jp3";
+let PWD:string = "/home/jptrzy";
 
 // Setup the greet function
 window.greet = function () {
@@ -30,14 +34,34 @@ window.greet = function () {
     }
 };
 
+const SUP_IMG_FORMATS: string[] = [".png", ".webp", ".jpg", ".jpeg"];
+
+function endsWithAny(suffixes: string[], string: string) {
+    return suffixes.some(function (suffix) {
+        return string.endsWith(suffix);
+    });
+}
+
 window.scan_dir = function(path:string, save:boolean){
 	try {
 		ScanDir(path)
-			.then((result) => {
+			.then((result: main.ScanDirJSON) => {
+				if (result.status == 0) {
+					result.files.sort(function(a, b) {
+						return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
+					});	
 
-				console.log(PWD, save);
-				console.log(result);
-
+					let html = PWD == "/" ? "" : '<li class="dir">..</li>';
+					result.files.forEach((file: main.File) => {
+						html += `<li class="${file.dir ? "dir" : ""} 
+${endsWithAny(SUP_IMG_FORMATS, file.name) ? "img":""}">${file.name}</li>`;
+					});
+					$("#dirs").html(html);
+					
+					if (save) {
+						PWD = path;
+					}
+				}
 			}).catch((err) => {
 				console.error(err);
 			})
@@ -45,6 +69,19 @@ window.scan_dir = function(path:string, save:boolean){
 		console.error(err);
 	}	    
 }
+
+window.scan_dir(PWD, true);
+$(document).on('click', "li.dir", function(e) {
+	let path:string = PWD + "/" + $(this).text();
+
+	if ($(this).text() === "..") {
+		path = path.slice(0, PWD.lastIndexOf("/"));
+	}
+
+	console.log($(this).text(), path, e);
+
+	window.scan_dir(path, true);
+});
 
 /*
 document.querySelector('#app')!.innerHTML = `
@@ -67,5 +104,7 @@ declare global {
     interface Window {
         greet: () => void;
         scan_dir: (path:string, save:boolean) => void;
+        $: any;
+        jQuery: any;
     }
 }

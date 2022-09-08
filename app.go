@@ -2,19 +2,19 @@ package main
 
 import (
 	"context"
-	"encoding/json"
+//	"encoding/json"
 	"fmt"
 	"io/ioutil"
 )
 
 type File struct {
-	name string `json:"name"`
-	dir  bool   `json:"dir"`
+	Name string `json:"name"`
+	Dir  bool   `json:"dir"`
 }
 
 type ScanDirJSON struct {
-	files  []File `json:"files"`
-	status int    `json:"status"`
+	Files  []File `json:"files"`
+	Status int    `json:"status"`
 }
 
 // App struct
@@ -38,25 +38,20 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) ScanDir(path string) string {
-	r := &ScanDirJSON{status: 0, files: []File{}}
+func (a *App) ScanDir(path string) ScanDirJSON{
+	r := ScanDirJSON{Status: 0, Files: []File{}}
 
 	fmt.Println("Try scan '" + path + "' dir.")
 
 	paths, err := ioutil.ReadDir(path)
 	if err != nil {
 		fmt.Println("Error ", err)
-		r.status = 1
+		r.Status = 1
 	} else {
 		for _, f := range paths {
-			r.files = append(r.files, File{name: f.Name(), dir: f.IsDir()})
+			r.Files = append(r.Files, File{Name: f.Name(), Dir: f.IsDir()})
 		}
 	}
 
-	fmt.Println(r.files[0])
-
-	rj, err := json.Marshal(r.files[0])
-	fmt.Println(rj, string(rj), err)
-
-	return fmt.Sprintf(string(rj))
+	return r
 }
