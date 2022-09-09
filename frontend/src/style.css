@@ -1,8 +1,3 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 :root, :host {
     --fa-style-family-classic: 'Font Awesome 6 Free';
     --fa-font-regular: normal 400 1em/1 'Font Awesome 6 Free';
@@ -29,7 +24,4 @@
     font-weight: 400; 
 }
 
-#app {
-    height: 100vh;
-    text-align: center;
-}
+
