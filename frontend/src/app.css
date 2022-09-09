@@ -3,6 +3,8 @@
 	--b-1: #417D7A;
 	--b-2: #1D5C63;
 	--b-3: #1A3C40;
+
+	--imgs-width: 200px;
 }
 
 * {
@@ -16,11 +18,11 @@
 	height: 100vh;
 	text-align: center;
 	
-	background: var(--b-3);
+	background: var(--b-2);
 	
 	display: grid;
 	grid-template-areas:
-		"path path"
+		"null path"
 		"navbar tab";
 
 	grid-template-rows: min-content 1fr;
@@ -36,6 +38,7 @@
 .tab {
 	grid-area: tab;
 	overflow-y: scroll; 
+	background: var(--b-3);
 }
 
  /* width */
@@ -71,7 +74,11 @@
 	background: var(--b-2);
 	color: var(--b-0);
 	grid-area: navbar;
-	display: gird;
+
+	display: flex;
+	flex-direction: column;
+
+	list-style-type: none;
 }
 
 #navbar li {
@@ -81,13 +88,24 @@
 	justify-self: stretch;
 }
 
-#navbar li:hover {
+#navbar span.sep {
+	flex: 1;	
+	align-self: flex-end;
+}
+
+#navbar li.select {
 	background: var(--b-3);
 }
 
-/* Imgs */
-#imgs {
+#navbar li:hover {
+	background: var(--b-1);
+}
 
+/* Imgs */
+#imgs img {
+	width: var(--imgs-width);
+	display: block;
+	margin: auto auto;
 }
 
 /* Dirs List */

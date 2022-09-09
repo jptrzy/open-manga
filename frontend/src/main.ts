@@ -26,6 +26,7 @@ window.switch_tab = function(id:string) {
 	$(".select").removeClass("select");	
 
 	$(".tab#" + id).addClass("select");
+	$("#navbar > li[tab='"+id+"']").addClass("select");
 }
 
 window.scan_dir = function(path:string, save:boolean){
@@ -37,12 +38,21 @@ window.scan_dir = function(path:string, save:boolean){
 						return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
 					});	
 
+					let imgs = "";
 					let html = PWD == "/" ? "" : '<li class="dir">..</li>';
+
 					result.files.forEach((file: main.File) => {
-						html += `<li class="${file.dir ? "dir" : ""} 
-${endsWithAny(SUP_IMG_FORMATS, file.name) ? "img":""}">${file.name}</li>`;
+						let is_dir = endsWithAny(SUP_IMG_FORMATS, file.name);
+
+						if (is_dir) {
+							imgs += `<img src="${path+"/"+file.name}" alt="${file.name}"/>`;
+						}
+
+						html += `<li class="${file.dir ? "dir " : ""}${is_dir ? "img" : ""}">${file.name}</li>`;
 					});
+
 					$("#dirs").html(html);
+					$("#imgs").html(imgs);
 					
 					if (save) {
 						update_path(path);
@@ -56,8 +66,12 @@ ${endsWithAny(SUP_IMG_FORMATS, file.name) ? "img":""}">${file.name}</li>`;
 	}	    
 }
 
+
+window.switch_tab("dirs");
 update_path(PWD);
 window.scan_dir(PWD, true);
+
+
 $(document).on('click', "li.dir", function(e) {
 	let path:string = PWD + "/" + $(this).text();
 
