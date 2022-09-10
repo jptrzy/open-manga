@@ -5,8 +5,8 @@ window.$ = window.jQuery = jQuery;
 
 
 // import logo from './assets/images/logo-universal.png';
-import {ScanDir, UpdateConfig} from '../wailsjs/go/main/App';
-import { main, config } from '../wailsjs/go/models';
+import {ScanDir, UpdateConfig} from '../wailsjs/go/app/App';
+import { app, config } from '../wailsjs/go/models';
 import { EventsOn, Quit } from '../wailsjs/runtime/runtime';
 
 let CONFIG:config.Config;
@@ -40,7 +40,7 @@ window.switch_tab = function(id:string) {
 window.scan_dir = function(path:string, save:boolean){
 	try {
 		ScanDir(path)
-			.then((result: main.ScanDirJSON) => {
+			.then((result: app.ScanDirJSON) => {
 				if (result.status == 0) {
 					result.files.sort(function(a, b) {
 						return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
@@ -49,7 +49,7 @@ window.scan_dir = function(path:string, save:boolean){
 					let imgs = "";
 					let html = PWD == "/" ? "" : '<li class="dir">..</li>';
 
-					result.files.forEach((file: main.File) => {
+					result.files.forEach((file: app.File) => {
 						if (!CONFIG.show_hidden_files && file.name.startsWith(".")) {
 							return;
 						}
@@ -71,7 +71,7 @@ window.scan_dir = function(path:string, save:boolean){
 					}
 					console.log("END Promis");
 				}
-			}).catch((err) => {
+			}).catch((err:Error) => {
 				console.error(err);
 			})
 	} catch (err) {

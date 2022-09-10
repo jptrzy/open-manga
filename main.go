@@ -3,9 +3,11 @@ package main
 import (
 	"embed"
 
-	"net/http"
 	"fmt"
+	"net/http"
 	"os"
+
+	"over-manga/backend"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -37,21 +39,19 @@ func (h *FileLoader) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 func main() {
 	// Create an instance of the app structure
-	app := NewApp()
+	_app := app.NewApp()
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:            "over-manga",
+		Title:            "Over Manga",
 		Width:            1024,
 		Height:           768,
 		Assets:           assets,
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
-		OnBeforeClose: app.onBeforeClose,
+		OnStartup:        _app.OnStartup,
+		OnBeforeClose:		_app.OnBeforeClose,
 		AssetsHandler:    NewFileLoader(),
-		Bind: []interface{}{
-			app,
-		},
+		Bind: []interface{}{ _app },
 	})
 
 	if err != nil {
