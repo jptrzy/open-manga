@@ -2,14 +2,18 @@ package main
 
 import (
 	"context"
-//	"encoding/json"
+	//	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"over-manga/config"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 func loadFile(path string) (string, bool) {
-
+		
 	dat, err := os.ReadFile(path)
 	if err != nil {
 		fmt.Printf(`Error "%s" while trying to read "%s".`, err, path)
@@ -17,38 +21,6 @@ func loadFile(path string) (string, bool) {
 	}
 	
 	return string(dat), true
-}
-
-type Config struct {
-
-	ImgWidgth int `json:"img_width"`	
-	ShowHiddenFiles bool `json:"show_hidden_files"`
-	
-}
-
-func NewConfig() *Config {
-	return &Config{}
-}
-
-func (c *Config) load(path string) int {
-	
-	return 0
-}
-
-
-func (c *Config) save(path string) int {
-	
-	return 0
-}
-
-type Cache struct {
-
-	LastOpenDir string `json:"last_open_dir"`	
-
-}
-
-func NewCache() *Cache {
-	return &Cache{}
 }
 
 type File struct {
@@ -64,8 +36,10 @@ type ScanDirJSON struct {
 // App struct
 type App struct {
 	ctx context.Context
-	config* Config
-	cache* Cache	
+	_config* config.Config
+	// Ensure that config is saved before quiting
+	try_quit bool
+	can_quit bool
 }
 
 // NewApp creates a new App application struct
@@ -77,8 +51,20 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	a.config = NewConfig()
-	a.cache = NewCache()
+	a._config = config.NewConfig()
+
+	a.try_quit = false
+	a.can_quit = false
+}
+
+func (a *App) onBeforeClose(ctx context.Context) (prevent bool) {
+	fmt.Println("Before Close")	
+	
+	runtime.EventsEmit(ctx, "before_close")
+
+	a.try_quit = true	
+
+	return !a.can_quit 
 }
 
 func (a *App) ScanDir(path string) ScanDirJSON{
@@ -99,13 +85,16 @@ func (a *App) ScanDir(path string) ScanDirJSON{
 	return r
 }
 
-func (a *App) UpdateConfig(config Config, save bool) Config {
-
+func (a *App) UpdateConfig(c config.Config, save bool) config.Config {
 	if save {
-		a.config = &config
-		//a.config.save()
+		a._config = &c
+		a._config.Save(config.CONFIG_PATH)
+		
+		if a.try_quit {
+			a.can_quit = true
+		}
 	}
 
-	return *a.config
+	return *a._config
 }
 

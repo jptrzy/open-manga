@@ -1,4 +1,4 @@
-module changeme
+module over-manga
 
 go 1.17
 
