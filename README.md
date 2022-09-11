@@ -4,9 +4,9 @@ Overcomplicated Manga Viewer (OverManga) is literally what is called.
 
 ## Installation
 ### From source
-`
+```
 make setup
 make
 sudo make install
-`
+```
 
