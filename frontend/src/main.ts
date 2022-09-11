@@ -12,12 +12,23 @@ import { EventsOn, Quit } from '../wailsjs/runtime/runtime';
 let CONFIG:config.Config;
 
 let PWD:string = "/home";
+
 const SUP_IMG_FORMATS: string[] = [".png", ".webp", ".jpg", ".jpeg"];
 
 function endsWithAny(suffixes: string[], string: string) {
     return suffixes.some(function (suffix) {
         return string.endsWith(suffix);
     });
+}
+
+function imgs_scroll(amount: number, time: number) {
+	console.log(
+		$('#imgs.tab').scrollTop()
+	);
+
+	$('#imgs.tab').stop().animate({
+		scrollTop: ($('#imgs.tab').scrollTop()||0) - amount 
+		}, time);
 }
 
 function update_width(size: number) {
@@ -28,6 +39,42 @@ function update_width(size: number) {
 function update_path(path:string) {
 	PWD = path;
 	$("#path").text(PWD);
+}
+
+let move_lock: boolean = false;
+function move_dir(move:number) {
+	if (move_lock) { return; }	
+	move_lock = true;
+
+	let i = PWD.lastIndexOf("/");
+	let paths = [
+		PWD.slice(0, i),
+		PWD.slice(i+1)
+	];
+
+	ScanDir(paths[0]).then((result: app.ScanDirJSON) => {
+		if (result.status != 0) { 
+			move_lock = false;	
+			return; 
+		}
+
+		result.files.sort(function(a, b) {
+			return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
+		});	
+
+		for (let i=0; i<result.files.length; i++) {
+			if (result.files[i].name == paths[1]) {
+				if (i+move > -1 && i+move < result.files.length) {
+					window.scan_dir(paths[0]+"/"+result.files[i+move].name, true);
+				} else {
+					console.log("Can't go any further.");
+				}
+
+				break;
+			}
+		}
+		move_lock = false;	
+	});
 }
 
 window.switch_tab = function(id:string) {
@@ -96,7 +143,7 @@ UpdateConfig(new config.Config(), false).then((config:config.Config)=>{
 
 		if ($(this).text() === "..") {
 			path = path.slice(0, PWD.lastIndexOf("/"));
-		}
+	}
 
 		console.log($(this).text(), path, e);
 
@@ -116,6 +163,30 @@ UpdateConfig(new config.Config(), false).then((config:config.Config)=>{
 				Quit();
 			});
 	});
+});
+
+$(document).keydown((e:any) => {
+
+	console.log(e.key);
+
+	if (e.key == "-") { update_width(CONFIG.img_width - 10);
+	} else if (e.key == "=") { update_width(CONFIG.img_width + 10);
+	} else if (["h", "ArrowLeft"].includes(e.key)) { move_dir(-1);
+	} else if (["l", "ArrowRight"].includes(e.key)) { move_dir(1);
+	} else if (["k", "ArrowUp"].includes(e.key)) { imgs_scroll(-CONFIG.scroll_speed, 100);
+	} else if (["j", "ArrowDown"].includes(e.key)) { imgs_scroll(-CONFIG.scroll_speed, 100);
+	} else if (e.key == "1") { window.switch_tab("dirs");
+	} else if (e.key == "2") { window.switch_tab("imgs");
+	}
+	return true;
+});
+
+$("#imgs.tab").on("wheel", function(e:any) {
+	let delta:number = e.originalEvent.deltaY;
+
+	imgs_scroll(CONFIG.scroll_speed * (delta>0?-1:1), 100/delta);
+
+	e.preventDefault();
 });
 
 declare global {

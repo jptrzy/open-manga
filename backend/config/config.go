@@ -13,18 +13,20 @@ var CONFIG_PATH = os.Getenv("HOME") + "/.config/over-manga"
 
 type Config struct {
 
+	ScrollSpeed int `json:"scroll_speed"`
 	ImgWidgth int `json:"img_width"`	
-	ShowHiddenFiles bool `json:"show_hidden_files"`
 
+	ShowHiddenFiles bool `json:"show_hidden_files"`
 	LastDir string `json:"last_dir"`
 
 }
 
 func NewConfig() *Config {
 	c := &Config{
+		ScrollSpeed: 300,
 		ImgWidgth: 200,
 		ShowHiddenFiles: false,
-		LastDir: "",
+		LastDir: os.Getenv("HOME"),
 	}
 
 	c.load()
@@ -40,6 +42,10 @@ func (c *Config) load() int {
 		file, _ := ioutil.ReadFile(CONFIG_PATH+"/config.json")
 		_ = json.Unmarshal([]byte(file), c)
 
+		if _, err := os.Stat(c.LastDir); err != nil {
+			log.Info.Println("Error was detected in last_dir path.")
+			c.LastDir = os.Getenv("HOME")
+		}
 	} else if errors.Is(err, os.ErrNotExist) {	
 		log.Info.Println("Couldn't find config file.")
 		c.Save(CONFIG_PATH)
