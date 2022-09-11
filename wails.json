@@ -1,6 +1,6 @@
 {
   "name": "over-manga",
-  "outputfilename": "OpenManga",
+  "outputfilename": "over-manga",
   "frontend:install": "npm install",
   "frontend:build": "npm run build",
   "frontend:dev:watcher": "npm run dev",

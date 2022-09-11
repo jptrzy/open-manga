@@ -165,7 +165,7 @@ UpdateConfig(new config.Config(), false).then((config:config.Config)=>{
 	});
 });
 
-$(document).keydown((e:any) => {
+$(document).on("keydown", (e:any) => {
 
 	console.log(e.key);
 

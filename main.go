@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"over-manga/backend"
+	log "over-manga/backend/logger"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -25,23 +26,21 @@ func NewFileLoader() *FileLoader {
 }
 
 func (h *FileLoader) ServeHTTP(res http.ResponseWriter, req *http.Request) {
-    var err error
-    requestedFilename := req.URL.Path
-    println("Requesting file:", requestedFilename, req.URL.Path)
-    fileData, err := os.ReadFile(requestedFilename)
-    if err != nil {
-        res.WriteHeader(http.StatusBadRequest)
-        res.Write([]byte(fmt.Sprintf("Could not load file %s", requestedFilename)))
-    }
+	var err error
+	requestedFilename := req.URL.Path
+	log.Info.Println("Requesting file:", requestedFilename, req.URL.Path)
+	fileData, err := os.ReadFile(requestedFilename)
+	if err != nil {
+		res.WriteHeader(http.StatusBadRequest)
+		res.Write([]byte(fmt.Sprintf("Could not load file %s", requestedFilename)))
+	}
 
-    res.Write(fileData)
+	res.Write(fileData)
 }
 
 func main() {
-	// Create an instance of the app structure
 	_app := app.NewApp()
 
-	// Create application with options
 	err := wails.Run(&options.App{
 		Title:            "Over Manga",
 		Width:            1024,
@@ -55,6 +54,6 @@ func main() {
 	})
 
 	if err != nil {
-		println("Error:", err.Error())
+		log.Error.Println(err.Error())
 	}
 }
