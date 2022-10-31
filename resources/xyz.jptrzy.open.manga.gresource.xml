@@ -5,6 +5,7 @@
 	<file>styles.css</file>
 
 <!-- Layouts -->
+   <file compressed="true">layout/app.ui</file>
 
 <!-- Components -->
    <file compressed="true">comp/images.ui</file>
