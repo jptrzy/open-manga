@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+<gresource prefix="/">
+<!-- Styles -->
+	<file>styles.css</file>
+
+<!-- Layouts -->
+
+<!-- Components -->
+   <file compressed="true">comp/images.ui</file>
+</gresource>
+</gresources>

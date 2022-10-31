@@ -1,0 +1,31 @@
+/* 
+https://docs.gtk.org/gtk4/css-properties.html
+*/
+
+* {
+	font-size: 20px;
+}
+
+window {
+	/* background: red; */
+}
+
+clamp>* {
+	/* background: yellow; */
+	/* 
+	width: 100px !important; */
+	/* background: yellow; */
+	border: solid 10px red;
+}
+
+/* picture,
+image {
+	/* opacity: 0.1; */
+/* max-width: 400px; */
+/* height: 100%; */
+border: solid 10px black;
+/* margin: 200px; */
+background: green;
+}
+
+*/
