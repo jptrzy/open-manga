@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+<object class="GtkScrolledWindow" id="scrolled_window">
+<property name="hexpand">True</property>
+<property name="vexpand">True</property>
+<child>
+	<object class="AdwClampScrollable" id="manhwa.clamp">
+		<property name="vscroll_policy">natural</property>
+		<child>
+			<object class="GtkViewport">
+				<property name="vscroll_policy">natural</property>
+				<child>
+					<object class="GtkBox">
+						<property name="orientation">vertical</property>
+						<child>
+							<object class="GtkBox" id="manhwa.box">
+								<property name="orientation">vertical</property>
+							</object>
+						</child><child>
+							<object class="GtkBox">
+								<property name="orientation">horizontal</property>
+								<property name="homogeneous">true</property>
+								<property name="margin-top">5</property>
+								<property name="margin-bottom">5</property>
+								<style>
+									<class name="linked"/>
+								</style>
+								<child>
+									<object class="GtkButton">
+										<property name="icon_name">go-previous</property>
+										<property name="receives-default">1</property>
+									</object>
+								</child><child>
+									<object class="GtkButton">
+										<property name="icon_name">go-next</property>
+										<property name="receives-default">1</property>
+									</object>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+		</child>
+	</object>
+</child>
+</object>
+</interface>

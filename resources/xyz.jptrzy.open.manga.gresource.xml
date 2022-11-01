@@ -6,6 +6,7 @@
 
 <!-- Layouts -->
    <file compressed="true">layout/app.ui</file>
+   <file compressed="true">layout/images_preview.ui</file>
 
 <!-- Components -->
    <file compressed="true">comp/images.ui</file>

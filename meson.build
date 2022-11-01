@@ -1,4 +1,8 @@
-project('xyz.jptrzy.open.manga', 'vala', 'c', version: '0.0.1')
+project('xyz.jptrzy.open.manga', 'vala', 'c', 
+	version: '0.0.1',
+	license: 'GPL-3.0',
+	meson_version : '>=0.60.0'
+)
 
 dependencies = [
 	dependency('glib-2.0'),
@@ -7,7 +11,11 @@ dependencies = [
 	dependency('libadwaita-1'),
 ]
 
-sources = files('src/main.vala')
+sources = files(
+	'src/App.vala',
+	'src/FilesPreview.vala',
+	'src/ImagesPreview.vala',
+)
 
 sources += import( 'gnome' ).compile_resources(
 	meson.project_name() + '.resources',

@@ -1,89 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
 <object class="AdwApplicationWindow" id="window">
+
+<property name="default-width">400</property>
+<property name="default-height">600</property>
 <property name="title">OpenManga</property>
 <property name="content">
-<object class="GtkBox"> 
-<!-- Content -->
-	<property name="orientation">vertical</property>
-	<child>
-		<object class="AdwHeaderBar">
-			<property name="title-widget">
-			<object class="AdwViewSwitcherTitle" id="title">
-				<property name="stack">stack</property>
-				<property name="title-visible">1</property>
-				<property name="title">1</property>
+
+<object class="AdwLeaflet" id="main.leaflet">
+<property name="hexpand">True</property>
+<!-- TODO check if swiping works -->
+<property name="can-navigate-back">True</property>
+<property name="can-unfold">False</property>
+<child>
+	<object class="GtkBox" id="files_preview.box">
+		<property name="orientation">vertical</property>
+		<property name="hexpand">True</property>
+		<child>
+			<object class="AdwHeaderBar">
+				<binding name="show-end-title-buttons">
+					<lookup name="folded">main.leaflet</lookup>
+				</binding>
+				<property name="title-widget">
+					<object class="AdwWindowTitle">
+						<property name="title">Files</property>
+					</object>
+				</property>
 			</object>
-			</property>
-		</object>
-	</child>
-	<child>
-		<object class="AdwViewSwitcherBar">
-			<property name="stack">stack</property>
-		</object>
-		
-		<object class="AdwViewStack" id="stack">
-			<property name="vexpand">True</property>
-			<child>
-				<object class="AdwViewStackPage">
-					<property name="title">Browser</property>
-					<property name="icon-name">folder-open-symbolic</property>
-					<property name="child">
-						<object class="GtkButton">
-							<property name="icon_name">folder-open-symbolic</property>
-						</object>
-						
-					</property>
-				</object>
-			</child><child>
-				<object class="AdwViewStackPage">
-					<property name="title">Preview</property>
-					<property name="icon-name">image-x-generic</property>
-					<property name="child">
-						<object class="GtkScrolledWindow">
-							<child>
-								<object class="AdwClampScrollable" id="preview.manhwa.clamp">
-									<property name="vscroll_policy">natural</property>
-									<child>
-										<object class="GtkViewport">
-											<property name="vscroll_policy">natural</property>
-											<child>
-												<object class="GtkBox">
-													<property name="orientation">vertical</property>
-													<child>
-														<object class="GtkBox" id="preview.manhwa.box">
-															<property name="orientation">vertical</property>
-															<child>
-															</child>
-														</object>
-													</child><child>
-														<object class="GtkBox">
-															<property name="orientation">horizontal</property>
-															<property name="homogeneous">true</property>
-															<child>
-																<object class="GtkButton">
-																	<property name="icon_name">go-previous</property>
-																</object>
-															</child><child>
-																<object class="GtkButton">
-																	<property name="icon_name">go-next</property>
-																</object>
-															</child>
-														</object>
-													</child>
-												</object>
-											</child>
-										</object>
-									</child>
-								</object>
-							</child>
-						</object>
-					</property>
-				</object>
-			</child>
-		</object>
-	</child>
-<!-- END -->
+		</child>
+	</object>
+</child><child>
+</child><child>
+	<object class="GtkBox" id="image_preview.box">
+		<property name="orientation">vertical</property>
+		<property name="hexpand">True</property>
+		<property name="vexpand">True</property>
+		<child>
+			<object class="AdwHeaderBar">
+				<binding name="show-start-title-buttons">
+					<lookup name="folded">main.leaflet</lookup>
+				</binding>
+				<child>
+					<object class="GtkButton">
+						<property name="icon-name">go-previous-symbolic</property>
+						<!-- <signal name="clicked" handler="back_clicked_cb"/> -->
+						<binding name="visible">
+							<lookup name="folded">main.leaflet</lookup>
+						</binding>
+					</object>
+				</child>
+				<property name="title-widget">
+					<object class="AdwWindowTitle">
+						<property name="title">Preview</property>
+					</object>
+				</property>
+			</object>
+		</child>
+	</object>
+</child>
 </object>
 </property>
 </object>
