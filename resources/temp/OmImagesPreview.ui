@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-<object class="GtkScrolledWindow" id="scrolled_window">
+
+<requires lib="gtk" version="4.0"/>
+<requires lib="Adw" version="1.0"/>
+
+<template class="OmImagesPreview" parent="GtkBox">
 <property name="hexpand">True</property>
 <property name="vexpand">True</property>
 <child>
-	<object class="AdwClampScrollable" id="manhwa.clamp">
+<object class="GtkScrolledWindow">
+<child>
+	<object class="AdwClampScrollable" id="manhwaClamp">
 		<property name="vscroll_policy">natural</property>
 		<child>
 			<object class="GtkViewport">
@@ -13,7 +19,7 @@
 					<object class="GtkBox">
 						<property name="orientation">vertical</property>
 						<child>
-							<object class="GtkBox" id="manhwa.box">
+							<object class="GtkBox" id="manhwaImagesBox">
 								<property name="orientation">vertical</property>
 							</object>
 						</child><child>
@@ -45,4 +51,6 @@
 	</object>
 </child>
 </object>
+</child>
+</template>
 </interface>

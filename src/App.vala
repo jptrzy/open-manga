@@ -1,7 +1,7 @@
 [SingleInstance]
 class OpenManga : Adw.Application {
 	public FilesPreview filesPreview;
-	public ImagesPreview imagePreview;
+	public OmImagesPreview imagePreview;
 
 	public Adw.Leaflet leadflet;
 
@@ -11,15 +11,24 @@ class OpenManga : Adw.Application {
 	}
 
 	protected override void activate () {
-		var builder = new Gtk.Builder.from_resource ("/layout/app.ui");
+		var builder = new Gtk.Builder.from_resource ("/layout/App.ui");
 
 		var win = (Adw.ApplicationWindow) builder.get_object ("window");
 		win.application = this;
 
+		var css_provider = new Gtk.CssProvider ();
+		css_provider.load_from_resource ("style/App.css");
+		Gtk.StyleContext.add_provider_for_display (win.get_display (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
 		leadflet = (Adw.Leaflet) builder.get_object ("main.leaflet");
 		leadflet.navigate (Adw.NavigationDirection.FORWARD);
 
-		imagePreview = new ImagesPreview ((Gtk.Box) builder.get_object ("image_preview.box"));
+		var button = (Gtk.Button) builder.get_object ("main.back");
+		button.clicked.connect ((handler) => {
+			leadflet.navigate (Adw.NavigationDirection.BACK);
+		});
+
+		imagePreview = new OmImagesPreview ((Gtk.Box) builder.get_object ("image_preview.box"));
 		filesPreview = new FilesPreview((Gtk.Box) builder.get_object ("files_preview.box"));
 
 		win.present ();

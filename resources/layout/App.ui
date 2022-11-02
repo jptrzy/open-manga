@@ -41,7 +41,7 @@
 					<lookup name="folded">main.leaflet</lookup>
 				</binding>
 				<child>
-					<object class="GtkButton">
+					<object class="GtkButton" id="main.back">
 						<property name="icon-name">go-previous-symbolic</property>
 						<!-- <signal name="clicked" handler="back_clicked_cb"/> -->
 						<binding name="visible">
@@ -50,8 +50,32 @@
 					</object>
 				</child>
 				<property name="title-widget">
-					<object class="AdwWindowTitle">
-						<property name="title">Preview</property>
+					<object class="GtkBox">
+						<property name="orientation">horizontal</property>
+						<!-- <property name="homogeneous">true</property> -->
+						<property name="margin-top">5</property>
+						<property name="margin-bottom">5</property>
+						<style>
+							<class name="linked"/>
+						</style>
+						<child>
+							<object class="GtkButton">
+								<property name="icon_name">go-previous</property>
+								<property name="receives-default">1</property>
+							</object>
+						</child><child>
+							<object class="AdwWindowTitle">
+								<property name="title">Preview</property>
+							</object>
+						</child><child>
+							<object class="GtkButton">
+								<property name="icon_name">go-next</property>
+								<property name="receives-default">1</property>
+							</object>
+						</child>
+						<style>
+							<class name="title-widget"/>
+						</style>
 					</object>
 				</property>
 			</object>

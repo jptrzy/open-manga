@@ -14,7 +14,7 @@ dependencies = [
 sources = files(
 	'src/App.vala',
 	'src/FilesPreview.vala',
-	'src/ImagesPreview.vala',
+	'src/OmImagesPreview.vala',
 )
 
 sources += import( 'gnome' ).compile_resources(
