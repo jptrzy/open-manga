@@ -13,7 +13,7 @@ dependencies = [
 
 sources = files(
 	'src/App.vala',
-	'src/FilesPreview.vala',
+	'src/OmFilesPreview.vala',
 	'src/OmImagesPreview.vala',
 )
 

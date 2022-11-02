@@ -5,9 +5,9 @@ class OmImagesPreview : Gtk.Box {
 	[GtkChild] unowned Gtk.Box manhwaImagesBox;
 
 	public OmImagesPreview (Gtk.Box parent) {
-		//  updateImages.begin ((obj, async_res) => {
-		//  	print("Hello");
-		//  });
+		updateImages.begin ((obj, async_res) => {
+			print("Hello");
+		});
 		print ("Change");
 		setWidth (400);
 

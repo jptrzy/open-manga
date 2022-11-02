@@ -10,6 +10,7 @@
 
 <!-- Templates -->
    <file compressed="true">temp/OmImagesPreview.ui</file>
+   <file compressed="true">temp/OmFilesPreview.ui</file>
 
 <!-- Components -->
    <file compressed="true">comp/images.ui</file>

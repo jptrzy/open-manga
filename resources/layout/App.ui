@@ -16,6 +16,7 @@
 	<object class="GtkBox" id="files_preview.box">
 		<property name="orientation">vertical</property>
 		<property name="hexpand">True</property>
+		<property name="vexpand">True</property>
 		<child>
 			<object class="AdwHeaderBar">
 				<binding name="show-end-title-buttons">

@@ -1,6 +1,6 @@
 [SingleInstance]
 class OpenManga : Adw.Application {
-	public FilesPreview filesPreview;
+	public OmFilesPreview filesPreview;
 	public OmImagesPreview imagePreview;
 
 	public Adw.Leaflet leadflet;
@@ -29,7 +29,7 @@ class OpenManga : Adw.Application {
 		});
 
 		imagePreview = new OmImagesPreview ((Gtk.Box) builder.get_object ("image_preview.box"));
-		filesPreview = new FilesPreview((Gtk.Box) builder.get_object ("files_preview.box"));
+		filesPreview = new OmFilesPreview((Gtk.Box) builder.get_object ("files_preview.box"));
 
 		win.present ();
 	}
