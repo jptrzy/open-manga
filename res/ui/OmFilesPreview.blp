@@ -2,7 +2,13 @@ using Gtk 4.0;
 using Adw 1;
 
 template OmFilesPreview : Box {
+	ListView list {
+		factory: BuilderListItemFactory factory {
+			resource: "/ui/OmFilesPreviewEntry.ui";
+		};
+	}
+
 	Label {
-		label: "TEST";
+		label: "TEST 2.0";
 	}
 }

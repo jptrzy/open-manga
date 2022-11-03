@@ -9,6 +9,7 @@
    <file compressed="true">ui/App.ui</file>
    <file compressed="true">ui/OmImagesPreview.ui</file>
    <file compressed="true">ui/OmFilesPreview.ui</file>
+   <file compressed="true">ui/OmFilesPreviewEntry.ui</file>
 
 </gresource>
 </gresources>
