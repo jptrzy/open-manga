@@ -2,3 +2,12 @@
 	padding-left: 1em;
 	padding-right: 1em;
 }
+
+gridview {
+	padding: 4px;
+}
+
+gridview > *{
+	margin: 6px;
+	padding: 4px;
+}

@@ -2,13 +2,15 @@ using Gtk 4.0;
 using Adw 1;
 
 template OmFilesPreview : Box {
-	ListView list {
+	GridView list {
+		hexpand: true;
+		vexpand: true;
+
+		single-click-activate: true;
+		activate => activateCB();
+
 		factory: BuilderListItemFactory factory {
 			resource: "/ui/OmFilesPreviewEntry.ui";
 		};
-	}
-
-	Label {
-		label: "TEST 2.0";
 	}
 }
