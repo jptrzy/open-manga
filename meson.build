@@ -11,16 +11,21 @@ dependencies = [
 	dependency('libadwaita-1'),
 ]
 
-sources = files(
-	'src/App.vala',
-	'src/OmFilesPreview.vala',
-	'src/OmImagesPreview.vala',
-)
-
-sources += import( 'gnome' ).compile_resources(
+resources = import( 'gnome' ).compile_resources(
 	meson.project_name() + '.resources',
-   join_paths('resources', meson.project_name() + '.gresource.xml'),
-	source_dir: ['resources'],
+   join_paths('res', meson.project_name() + '.gresource.xml'),
+	source_dir: 'res',
 )
 
-executable('OpenManga', sources, dependencies: dependencies)
+sources = files(
+	run_command('find', '.', '-name', '*.vala').stdout().strip().split('\n')
+)
+
+executable(
+	'OpenManga',
+	resources,
+	sources: sources,
+	vala_args: ['--gresourcesdir=src/'],
+	dependencies: dependencies,
+	install: true,
+)

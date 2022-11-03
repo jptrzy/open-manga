@@ -1,0 +1,47 @@
+using Gtk 4.0;
+using Adw 1;
+
+template OmImagesPreview : Box {
+  hexpand: true;
+  vexpand: true;
+
+  ScrolledWindow {
+    Adw.ClampScrollable manhwaClamp {
+      vscroll-policy: natural;
+
+      Viewport {
+        vscroll-policy: natural;
+
+        Box {
+          orientation: vertical;
+
+          Box manhwaImagesBox {
+            orientation: vertical;
+          }
+
+          Box {
+            orientation: horizontal;
+            homogeneous: true;
+            hexpand: true;
+            margin-top: 5;
+            margin-bottom: 5;
+
+            styles [
+              "linked",
+            ]
+
+            Button {
+              icon-name: "go-previous";
+              receives-default: true;
+            }
+
+            Button {
+              icon-name: "go-next";
+              receives-default: true;
+            }
+          }
+        }
+      }
+    }
+  }
+}

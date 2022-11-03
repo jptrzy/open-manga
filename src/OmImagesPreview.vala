@@ -1,5 +1,5 @@
 [SingleInstance]
-[GtkTemplate (ui = "/temp/OmImagesPreview.ui")]
+[GtkTemplate (ui = "/ui/OmImagesPreview.ui")]
 class OmImagesPreview : Gtk.Box {
 	[GtkChild] unowned Adw.ClampScrollable manhwaClamp;
 	[GtkChild] unowned Gtk.Box manhwaImagesBox;

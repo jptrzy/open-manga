@@ -1,3 +1,6 @@
 
+*.ui
 build
 sandbox
+*.old
+/subprojects/blueprint-compiler

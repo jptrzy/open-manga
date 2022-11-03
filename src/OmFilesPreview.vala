@@ -1,5 +1,5 @@
 [SingleInstance]
-[GtkTemplate (ui = "/temp/OmFilesPreview.ui")]
+[GtkTemplate (ui = "/ui/OmFilesPreview.ui")]
 class OmFilesPreview : Gtk.Box {
 	//  public GLib.Path rootPath;
 

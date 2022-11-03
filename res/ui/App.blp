@@ -1,0 +1,53 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ApplicationWindow window {
+	default-width: 400;
+	default-height: 600;
+	title: "OpenManga";
+	content: Adw.Leaflet main_leaflet{
+		can-navigate-back: true;
+		can-unfold: false;
+		hexpand: true;
+
+		Box files_preview_box {
+			orientation: vertical;
+			hexpand: true;
+			vexpand: true;
+
+			Adw.HeaderBar {
+				show-end-title-buttons: bind main_leaflet.folded;
+				title-widget: Adw.WindowTitle {
+					title: "Files";
+				};
+			}
+		}
+
+		Box image_preview_box {
+			orientation: vertical;
+			hexpand: true;
+			vexpand: true;
+
+			Adw.HeaderBar {
+				show-start-title-buttons: bind main_leaflet.folded;
+				
+				Button main_back {
+					icon-name: "go-previous-symbolic";
+					visible: bind main_leaflet.visible;
+				}
+
+				title-widget: Box {
+					orientation: horizontal;
+
+					styles ["linked", "title-widget"]
+
+					Button { icon-name: "go-previous"; }
+
+					Adw.WindowTitle { title: "Preview"; }
+
+					Button { icon-name: "go-next"; }
+				};
+			}
+		}
+	};
+}
