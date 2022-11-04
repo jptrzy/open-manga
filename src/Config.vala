@@ -18,21 +18,29 @@ class Config : GLib.Object {
 		}
 	}
 
+	private bool initiated = false;
 	public Config() {
-		{ // Load from file
-			var p = new Json.Parser();
+		if (!initiated) {
+			{ // Load from file
+				var p = new Json.Parser();
 
-			p.load_from_file ("config.json");
-		
-			/*
-				When JSON trys to write to newly created object values from parser
-				it automaticly write them to this object,
-				becouse it is [SingleInstance] and all objects are the same one.
-			*/
-			Json.gobject_deserialize (typeof(Config), p.get_root ());
+				p.load_from_file ("config.json");
+			
+				/*
+					When JSON trys to write to newly created object values from parser
+					it automaticly write them to this object,
+					becouse it is [SingleInstance] and all objects are the same one.
+				*/
+				Json.gobject_deserialize (typeof(Config), p.get_root ());
+			}
+
+			print ("Config in version %i was loaded succesfully\n", version);
+			
+			initiated = true;
 		}
-
-		print ("Config in version %i was loaded succesfully\n", version);
-
+	}
+	
+	public void save() {
+		print ("TODO saving of config\n");
 	}
 }

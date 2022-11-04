@@ -1,17 +1,17 @@
 [SingleInstance]
-class OpenManga : Adw.Application {
-	public OmFilesPreview filesPreview;
-	public OmImagesPreview imagePreview;
-	public Config config;
+class App : Adw.Application {
+	public static OmFilesPreview filesPreview;
+	public static OmImagesPreview imagePreview;
+	public static Config config;
 
 	public Adw.ApplicationWindow window;
 	public Adw.Leaflet leadflet;
 
-	public OpenManga () {
+	public App () {
 		Object (application_id: "net.jptrzy.open.manga",
 		        flags: ApplicationFlags.FLAGS_NONE);
 
-		config = new Config ();
+		print("\nNEW APP\n");
 	}
 
 	protected override void activate () {
@@ -25,7 +25,6 @@ class OpenManga : Adw.Application {
 		Gtk.StyleContext.add_provider_for_display (window.get_display (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
 		leadflet = (Adw.Leaflet) builder.get_object ("main_leaflet");
-		leadflet.navigate (Adw.NavigationDirection.FORWARD);
 
 		var button = (Gtk.Button) builder.get_object ("main_back");
 		button.clicked.connect ((handler) => {
@@ -39,6 +38,9 @@ class OpenManga : Adw.Application {
 	}
 
 	public static int main (string[] args) {
-		return new OpenManga ().run (args);
+		App.config = new Config ();
+		var o = new App ().run (args);
+		App.config.save ();
+		return o;
 	}
 }

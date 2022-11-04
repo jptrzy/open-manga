@@ -21,7 +21,7 @@ resources = import( 'gnome' ).compile_resources(
 )
 
 sources = files(
-	run_command('find', '.', '-name', '*.vala').stdout().strip().split('\n')
+	run_command('find', 'src', '-name', '*.vala').stdout().strip().split('\n')
 )
 
 executable(
