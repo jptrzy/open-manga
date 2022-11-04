@@ -9,6 +9,9 @@ dependencies = [
 	dependency('gobject-2.0'),
 	dependency('gtk4'),
 	dependency('libadwaita-1'),
+
+	dependency('json-glib-1.0'),
+	dependency('gee-0.8'),
 ]
 
 resources = import( 'gnome' ).compile_resources(

@@ -2,15 +2,17 @@ using Gtk 4.0;
 using Adw 1;
 
 template OmFilesPreview : Box {
-	GridView list {
+	ScrolledWindow {
 		hexpand: true;
 		vexpand: true;
+		
+		GridView list {
+			single-click-activate: true;
+			activate => activateCB();
 
-		single-click-activate: true;
-		activate => activateCB();
-
-		factory: BuilderListItemFactory factory {
-			resource: "/ui/OmFilesPreviewEntry.ui";
-		};
+			factory: BuilderListItemFactory factory {
+				resource: "/ui/OmFilesPreviewEntry.ui";
+			};
+		}
 	}
 }

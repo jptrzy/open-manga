@@ -6,9 +6,9 @@ class OmImagesPreview : Gtk.Box {
 
 	public OmImagesPreview (Gtk.Box parent) {
 		updateImages.begin ((obj, async_res) => {
-			print("Hello");
+			//  print("Hello");
 		});
-		print ("Change");
+		//  print ("Change");
 		setWidth (400);
 
 		parent.append (this);
@@ -31,7 +31,7 @@ class OmImagesPreview : Gtk.Box {
 				image.hexpand = true;
 				manhwaImagesBox.append (image);
 
-				print ("%s\n", name);
+				//  print ("%s\n", name);
 
 				Idle.add(updateImages.callback);
 				yield;

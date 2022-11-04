@@ -10,6 +10,7 @@
 			<property name="orientation">vertical</property>
 			<child>
 				<object class="GtkImage">
+					<property name="icon-size">large</property>
 					<binding name="icon-name">
 						<lookup name="iconName" type="Entry">
 							<lookup name="item">
